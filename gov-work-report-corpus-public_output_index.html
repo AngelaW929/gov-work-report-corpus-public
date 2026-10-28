@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2016—2026 政府工作报告中英对齐语料库</title>
+    <meta
+      name="description"
+      content="2016—2026 年政府工作报告中英对齐语料库网页，支持年度筛选、关键词检索、质量查看和中英双栏浏览。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero-card">
+        <div class="hero-copy">
+          <p class="hero-kicker">Government Work Report Parallel Corpus</p>
+          <h1>2016—2026 政府工作报告中英对齐语料库</h1>
+          <p class="hero-description">
+            基于 2016—2026 年官方中英文政府工作报告构建的可检索网页语料库，支持年度筛选、关键词检索、质量查看和中英双栏浏览。
+          </p>
+          <div class="hero-actions">
+            <a class="primary-btn" href="#filters-panel">开始检索语料</a>
+            <a class="secondary-btn" href="#sources-panel">查看来源说明</a>
+          </div>
+          <div class="hero-meta">
+            <span>适合翻译研究</span>
+            <span>政策话语分析</span>
+            <span>术语对照整理</span>
+          </div>
+        </div>
+        <div class="hero-stats" id="hero-stats"></div>
+      </header>
+
+      <section class="metric-grid" id="metric-grid"></section>
+
+      <section class="panel filter-panel" id="filters-panel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Corpus Search</p>
+            <h2>语料检索与筛选</h2>
+          </div>
+          <p class="panel-note">支持在线检索、筛选和浏览 2016—2026 年政府工作报告中英对齐语料。</p>
+        </div>
+
+        <div class="filter-layout">
+          <div class="filter-main">
+            <label class="search-box">
+              <span>关键词</span>
+              <input id="search-input" type="text" placeholder="输入关键词，如 高质量发展、教育、创新、employment" />
+            </label>
+
+            <div class="filter-row">
+              <label>
+                <span>年份</span>
+                <select id="year-select"></select>
+              </label>
+              <label>
+                <span>质量</span>
+                <select id="quality-select">
+                  <option value="all">全部质量</option>
+                  <option value="高">高</option>
+                  <option value="中">中</option>
+                  <option value="需复核">需复核</option>
+                </select>
+              </label>
+              <label>
+                <span>检索字段</span>
+                <select id="field-select">
+                  <option value="all">中英双语</option>
+                  <option value="zh">仅中文</option>
+                  <option value="en">仅英文</option>
+                </select>
+              </label>
+              <label>
+                <span>排序方式</span>
+                <select id="sort-select">
+                  <option value="year-asc">按年份升序</option>
+                  <option value="year-desc">按年份降序</option>
+                  <option value="cost-asc">按对齐成本升序</option>
+                  <option value="cost-desc">按对齐成本降序</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <aside class="keyword-panel">
+            <div class="keyword-head">
+              <h3>高频主题</h3>
+              <p>点击即可带入检索框</p>
+            </div>
+            <div class="keyword-list" id="keyword-list"></div>
+            <div class="result-summary" id="result-summary"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="chart-grid">
+        <article class="panel chart-panel wide">
+          <div class="panel-header compact">
+            <div>
+              <p class="panel-kicker">Overview by Year</p>
+              <h2>年度语料规模与对齐成本</h2>
+            </div>
+          </div>
+          <div id="year-chart" class="chart-list year-chart"></div>
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="panel-header compact">
+            <div>
+              <p class="panel-kicker">Merge Strength</p>
+              <h2>中英文合并强度</h2>
+            </div>
+          </div>
+          <div id="merge-chart" class="chart-list merge-chart"></div>
+        </article>
+
+        <article class="panel chart-panel">
+          <div class="panel-header compact">
+            <div>
+              <p class="panel-kicker">Quality Breakdown</p>
+              <h2>对齐质量分布</h2>
+            </div>
+          </div>
+          <div class="quality-layout">
+            <div class="quality-track" id="quality-track"></div>
+            <div class="quality-legend" id="quality-legend"></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="panel browser-panel" id="records-panel">
+        <div class="panel-header">
+          <div>
+            <p class="panel-kicker">Aligned Records</p>
+            <h2>中英对照语料浏览</h2>
+          </div>
+          <p class="panel-note" id="records-summary"></p>
+        </div>
+        <div class="record-list" id="record-list"></div>
+        <div class="pagination-bar" id="pagination-bar"></div>
+      </section>
+
+      <section class="source-grid" id="sources-panel">
+        <article class="panel notes-panel">
+          <div class="panel-header compact">
+            <div>
+              <p class="panel-kicker">Method</p>
+              <h2>构建说明</h2>
+            </div>
+          </div>
+          <div class="note-stack">
+            <div class="note-card">
+              <h3>来源策略</h3>
+              <p>中文优先采用省级政府汇总的国务院政府工作报告全文页面，英文优先采用国务院英文站；2018 年英文采用 People’s Daily Online 作为补充来源。</p>
+            </div>
+            <div class="note-card">
+              <h3>对齐策略</h3>
+              <p>采用动态规划进行语段级自动对齐，允许中文 1—2 段与英文 1—4 段组合匹配，并记录对齐成本、合并段数与来源链接。</p>
+            </div>
+            <div class="note-card warning">
+              <h3>使用提醒</h3>
+              <p>“需复核”语段建议结合原始链接进行人工校对，尤其是 2023 年及若干附件年份的高成本样本。</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel source-panel">
+          <div class="panel-header compact">
+            <div>
+              <p class="panel-kicker">Source Table</p>
+              <h2>年度来源与处理概览</h2>
+            </div>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>年份</th>
+                  <th>对齐条数</th>
+                  <th>平均成本</th>
+                  <th>来源链接</th>
+                </tr>
+              </thead>
+              <tbody id="sources-body"></tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <script src="./data.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
